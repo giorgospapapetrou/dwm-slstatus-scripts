@@ -1,0 +1,10 @@
+#!/bin/sh
+
+iface="wlo1"
+
+if iw dev "$iface" link | grep -q "SSID:"; then
+    essid=$(iw dev "$iface" link | sed -n 's/.*SSID: //p')
+    printf "%s  " "$essid"
+else
+    printf "Disconnected 󰖪 "
+fi

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+vol=$(amixer get Master | awk -F'[][]' 'END { print $2 }')
+mute=$(amixer get Master | awk -F'[][]' 'END { print $6 }')
+
+# remove % sign for comparison
+vol_num=$(echo "$vol" | tr -d '%')
+
+if [ "$mute" = "off" ]; then
+    icon="󰝟"
+elif [ "$vol_num" -ge 70 ]; then
+    icon=" "
+elif [ "$vol_num" -ge 30 ]; then
+    icon=" "
+else
+    icon=" "
+fi
+
+printf "%s %s" "$icon" "$vol"

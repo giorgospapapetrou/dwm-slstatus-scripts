@@ -1,0 +1,22 @@
+#!/bin/sh
+
+bat="BAT1"
+
+capacity=$(cat /sys/class/power_supply/$bat/capacity)
+status=$(cat /sys/class/power_supply/$bat/status)
+
+if [ "$status" = "Charging" ]; then
+    icon=" "
+elif [ "$capacity" -ge 90 ]; then
+    icon=" "
+elif [ "$capacity" -ge 60 ]; then
+    icon=" "
+elif [ "$capacity" -ge 40 ]; then
+    icon=" "
+elif [ "$capacity" -ge 20 ]; then
+    icon=" "
+else
+    icon=" "
+fi
+
+printf "%s %s%%" "$icon" "$capacity"
