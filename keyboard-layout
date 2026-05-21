@@ -1,0 +1,15 @@
+#!/bin/sh
+
+layout=$(xkblayout-state print "%s")
+
+case "$layout" in
+    us)
+        echo "EN"
+        ;;
+    gr)
+        echo "GR"
+        ;;
+    *)
+        echo "$layout"
+        ;;
+esac
