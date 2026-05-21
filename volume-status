@@ -1,19 +1,19 @@
 #!/bin/sh
 
-vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | head -1)
-mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+# output: "Volume: 0.75" or "Volume: 0.75 [MUTED]"
 
-# remove % sign for comparison
-vol_num=$(echo "$vol" | tr -d '%')
+mute=$(echo "$vol" | grep -c "MUTED")
+vol_num=$(echo "$vol" | awk '{printf "%d", $2 * 100}')
 
-if [ "$mute" = "yes" ]; then
-    icon="󰝟"
+if [ "$mute" -gt 0 ]; then
+    icon="󰝟"
 elif [ "$vol_num" -ge 70 ]; then
-    icon=" "
+    icon=" "
 elif [ "$vol_num" -ge 30 ]; then
-    icon=" "
+    icon=" "
 else
-    icon=" "
+    icon=" "
 fi
 
-printf "%s %s" "$icon" "$vol"
+printf "%s %d%%" "$icon" "$vol_num"
