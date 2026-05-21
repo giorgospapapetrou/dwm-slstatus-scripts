@@ -1,10 +1,10 @@
 #!/bin/sh
 
-vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
-# output: "Volume: 0.75" or "Volume: 0.75 [MUTED]"
+vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d%%", $2 * 100}')
+mute=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c "MUTED")
 
-mute=$(echo "$vol" | grep -c "MUTED")
-vol_num=$(echo "$vol" | awk '{printf "%d", $2 * 100}')
+# remove % sign for comparison
+vol_num=$(echo "$vol" | tr -d '%')
 
 if [ "$mute" -gt 0 ]; then
     icon="󰝟"
@@ -16,4 +16,4 @@ else
     icon=" "
 fi
 
-printf "%s %d%%" "$icon" "$vol_num"
+printf "%s %s" "$icon" "$vol"
