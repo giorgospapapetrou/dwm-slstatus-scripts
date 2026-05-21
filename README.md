@@ -27,3 +27,4 @@ Run a script:
 - dwm
 - slstatus
 - Bash
+- Simple Terminal
