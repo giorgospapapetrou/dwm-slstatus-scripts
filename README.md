@@ -8,6 +8,8 @@ A small collection of Bash scripts used in my Arch Linux + dwm workflow for disp
 - `battery-status` - displays battery status
 - `volume-status` - displays volume status
 - `wifi-status` - displays Wi-Fi/network status
+- `keyboard-layout` - displays keyboard language
+
 
 ## Usage
 
